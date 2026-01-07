@@ -1,84 +1,150 @@
-"use client"
+"use client";
 
-import Link from "next/link"
+import Link from "next/link";
 import {
   Menubar,
+  MenubarContent,
   MenubarMenu,
   MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-} from "@/components/ui/menubar"
-import { ModeToggle } from "@/components/ModeToggle"
+} from "@/components/ui/menubar";
+import { ModeToggle } from "@/components/ModeToggle";
+import { smoothScroll } from "@/utils/smoothScroll";
 
 export default function Navbar() {
   return (
-    <nav className="w-full border-b-4 border-black bg-(--color-card) px-6 py-3 shadow-[4px_4px_0_#000]">
+    <nav className="sticky top-0 z-50 w-full border-b-4 border-black bg-(--color-card) px-6 py-3 shadow-[4px_4px_0_#000]">
       <div className="mx-auto flex max-w-6xl items-center justify-between">
-        
-        {/* Logo / Title */}
+        {/* Logo */}
         <Link
           href="/"
-          className="text-sm font-bold tracking-wider hover:underline"
+          className="text-sm font-bold tracking-widest hover:underline"
         >
           Rohaz.dev
         </Link>
 
-        {/* Menu */}
-        <Menubar className="border-4 border-black bg-(--color-background) gap-4 shadow-[3px_3px_0_#000]">
-          
+        {/* Minecraft Menu */}
+        <Menubar className="border-4 border-black bg-(--color-background) gap-2 px-2 shadow-[3px_3px_0_#000]">
           <MenubarMenu>
-            <MenubarTrigger>Home</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem asChild>
-                <Link href="/">Spawn</Link>
-              </MenubarItem>
-            </MenubarContent>
+            <MenubarTrigger asChild>
+              <Link
+                href="/"
+                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
+              >
+                Home
+              </Link>
+            </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger>About</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem asChild>
-                <Link href="/about">Player Stats</Link>
-              </MenubarItem>
-            </MenubarContent>
+            <MenubarTrigger asChild>
+              <Link
+                href="#timeline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  smoothScroll("timeline");
+                }}
+                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
+              >
+                My Journey
+              </Link>
+            </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger>Skills</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem asChild>
-                <Link href="/skills">Inventory</Link>
-              </MenubarItem>
-            </MenubarContent>
+            <MenubarTrigger asChild>
+              <Link
+                href="#summary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  smoothScroll("summary");
+                }}
+                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
+              >
+                About
+              </Link>
+            </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger>Work</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem asChild>
-                <Link href="/projects">Projects</Link>
-              </MenubarItem>
-              <MenubarItem asChild>
-                <Link href="/experience">Experience</Link>
-              </MenubarItem>
-            </MenubarContent>
+            <MenubarTrigger asChild>
+              <Link
+                href="#skills"
+                onClick={(e) => {
+                  e.preventDefault();
+                  smoothScroll("skills");
+                }}
+                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
+              >
+                Skills
+              </Link>
+            </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger>Contact</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem asChild>
-                <Link href="/contact">Portal</Link>
-              </MenubarItem>
-            </MenubarContent>
+            <MenubarTrigger asChild>
+              <Link
+                href="#projects"
+                onClick={(e) => {
+                  e.preventDefault();
+                  smoothScroll("projects");
+                }}
+                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
+              >
+                Projects
+              </Link>
+            </MenubarTrigger>
           </MenubarMenu>
 
+          <MenubarMenu>
+            <MenubarTrigger asChild>
+              <Link
+                href="#achievements"
+                onClick={(e) => {
+                  e.preventDefault();
+                  smoothScroll("achievements");
+                }}
+                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
+              >
+                Achievements
+              </Link>
+            </MenubarTrigger>
+          </MenubarMenu>
+
+          {/* Contact dropdown */}
+          <MenubarMenu>
+            <MenubarTrigger className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]">
+              Contact
+            </MenubarTrigger>
+
+            <MenubarContent className="border-4 border-black bg-(--color-card) shadow-[4px_4px_0_#000] p-2 space-y-2">
+              <a
+                href="tel:+916283583232"
+                className="block border-2 border-black bg-muted px-3 py-1 text-xs shadow-[2px_2px_0_#000]"
+              >
+                📞 +91 62835 83232
+              </a>
+
+              <a
+                href="mailto:rohazbhalla3@gmail.com"
+                className="block border-2 border-black bg-muted px-3 py-1 text-xs shadow-[2px_2px_0_#000]"
+              >
+                ✉️ rohazbhalla3@gmail.com
+              </a>
+
+              <a
+                href="/docs/Rohaz_Bhalla_Software_Engineer.pdf"
+                download
+                className="block border-2 border-black bg-green-700 text-white px-3 py-1 text-xs shadow-[2px_2px_0_#000] hover:bg-green-800"
+              >
+                ⬇ Download Resume
+              </a>
+            </MenubarContent>
+          </MenubarMenu>
         </Menubar>
 
-        {/* Mode Toggle */}
+        {/* Theme Toggle */}
         <ModeToggle />
       </div>
     </nav>
-  )
+  );
 }

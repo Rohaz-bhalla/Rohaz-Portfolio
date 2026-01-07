@@ -12,7 +12,7 @@ export const timelineData: TimelineItem[] = [
     title: "Started Learning Linux and Basics of Programming",
     description:
       "Entered the world of coding. Learned C, basics of programming, and problem-solving.",
-    image: "/timeline/start.png",
+    image: "/timeline/Linux.png",
     xp: 25,
   },
   {
@@ -20,7 +20,7 @@ export const timelineData: TimelineItem[] = [
     title: "Web Development",
     description:
       "Built projects using HTML, CSS, JavaScript, Node.js, and MySQL.",
-    image: "/timeline/web.png",
+    image: "/timeline/web-dev.png",
     xp: 50,
   },
   {
@@ -28,7 +28,7 @@ export const timelineData: TimelineItem[] = [
     title: "Full Stack + Open Source",
     description:
       "Worked with MERN, Next.js, participated in hackathons such as StatusBrew's Skillsprints, HackerWrath etc.",
-    image: "/timeline/fullstack.png",
+    image: "/timeline/hacktoberfest.png",
     xp: 80,
   },
   {
@@ -36,7 +36,7 @@ export const timelineData: TimelineItem[] = [
     title: "Advanced Projects + Open Source",
     description:
       "Building scalable apps, AI integrations, leading web teams, Contributed in open-source by -  Successfully  Merging 6 Pull-Requests in HacktoberFest and Winning the T-shirt.",
-    image: "/timeline/advanced.png",
+    image: "/timeline/hackerwrath.jpeg",
     xp: 95,
   },
 ]
