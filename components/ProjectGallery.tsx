@@ -4,7 +4,7 @@ import { ProjectBlock } from "./ProjectBlock"
 export default function ProjectGallery() {
   return (
     <section id="projects" className="mx-auto max-w-6xl px-6 py-24">
-      <h2 className="mb-12 text-center text-3xl">
+      <h2 className="float mb-12 text-center text-3xl">
         🧱 Project Gallery
       </h2>
 

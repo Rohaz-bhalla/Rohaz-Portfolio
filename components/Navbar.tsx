@@ -1,150 +1,111 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarMenu,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { ModeToggle } from "@/components/ModeToggle";
 import { smoothScroll } from "@/utils/smoothScroll";
+import { Button } from "./ui/button";
+
+const slot = `
+  h-9 min-w-[64px]
+  flex items-center justify-center
+  border-2 border-black
+  shadow-[2px_2px_0_#000]
+  text-xs font-bold
+  transition
+  bg-[#c6c6c6] text-black
+  dark:bg-[#3a3a3a] dark:text-white
+  hover:bg-[#b0b0b0] dark:hover:bg-[#4a4a4a]
+  active:translate-x-0.5 active:translate-y-0.5 active:shadow-none
+`;
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  const links = [
+    ["Home", "/"],
+    ["Journey", "timeline"],
+    ["About", "summary"],
+    ["Skills", "skills"],
+    ["Projects", "projects"],
+    ["Awards", "achievements"],
+  ];
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b-4 border-black bg-(--color-card) px-6 py-3 shadow-[4px_4px_0_#000]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between">
-        {/* Logo */}
+    <nav className="sticky top-0 z-50 border-b-4 border-black bg-[#AAAAAA] dark:bg-[#1f1f1f] shadow-[4px_4px_0_#000]">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2">
+
+        {/* Logo Slot */}
         <Link
           href="/"
-          className="text-sm font-bold tracking-widest hover:underline"
+          className="
+            h-9 px-3 flex items-center
+            border-2 border-black
+            bg-[#8bd971] dark:bg-[#4caf50]
+            text-black font-extrabold
+            shadow-[2px_2px_0_#000]
+          "
         >
           Rohaz.dev
         </Link>
 
-        {/* Minecraft Menu */}
-        <Menubar className="border-4 border-black bg-(--color-background) gap-2 px-2 shadow-[3px_3px_0_#000]">
-          <MenubarMenu>
-            <MenubarTrigger asChild>
-              <Link
-                href="/"
-                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
-              >
-                Home
-              </Link>
-            </MenubarTrigger>
-          </MenubarMenu>
+        {/* Desktop Hotbar */}
+        <div className="hidden md:flex gap-2">
+          {links.map(([label, target]) => (
+            <Button
+              key={label}
+              onClick={() => {
+                if (!target.startsWith("/")) smoothScroll(target);
+              }}
+              className={`${slot} ${
+                pathname === target
+                  ? "bg-[#8bd971] dark:bg-[#4caf50]"
+                  : ""
+              }`}
+            >
+              {label}
+            </Button>
+          ))}
+        </div>
 
-          <MenubarMenu>
-            <MenubarTrigger asChild>
-              <Link
-                href="#timeline"
-                onClick={(e) => {
-                  e.preventDefault();
-                  smoothScroll("timeline");
-                }}
-                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
-              >
-                My Journey
-              </Link>
-            </MenubarTrigger>
-          </MenubarMenu>
+        {/* Right Controls */}
+        <div className="flex items-center gap-2">
+          {/* Mobile ☰ Slot */}
+          <Button
+            onClick={() => setOpen(!open)}
+            className={`md:hidden ${slot}`}
+          >
+            ☰
+          </Button>
 
-          <MenubarMenu>
-            <MenubarTrigger asChild>
-              <Link
-                href="#summary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  smoothScroll("summary");
-                }}
-                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
-              >
-                About
-              </Link>
-            </MenubarTrigger>
-          </MenubarMenu>
-
-          <MenubarMenu>
-            <MenubarTrigger asChild>
-              <Link
-                href="#skills"
-                onClick={(e) => {
-                  e.preventDefault();
-                  smoothScroll("skills");
-                }}
-                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
-              >
-                Skills
-              </Link>
-            </MenubarTrigger>
-          </MenubarMenu>
-
-          <MenubarMenu>
-            <MenubarTrigger asChild>
-              <Link
-                href="#projects"
-                onClick={(e) => {
-                  e.preventDefault();
-                  smoothScroll("projects");
-                }}
-                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
-              >
-                Projects
-              </Link>
-            </MenubarTrigger>
-          </MenubarMenu>
-
-          <MenubarMenu>
-            <MenubarTrigger asChild>
-              <Link
-                href="#achievements"
-                onClick={(e) => {
-                  e.preventDefault();
-                  smoothScroll("achievements");
-                }}
-                className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]"
-              >
-                Achievements
-              </Link>
-            </MenubarTrigger>
-          </MenubarMenu>
-
-          {/* Contact dropdown */}
-          <MenubarMenu>
-            <MenubarTrigger className="px-3 py-1 border-2 border-black shadow-[2px_2px_0_#000]">
-              Contact
-            </MenubarTrigger>
-
-            <MenubarContent className="border-4 border-black bg-(--color-card) shadow-[4px_4px_0_#000] p-2 space-y-2">
-              <a
-                href="tel:+916283583232"
-                className="block border-2 border-black bg-muted px-3 py-1 text-xs shadow-[2px_2px_0_#000]"
-              >
-                📞 +91 62835 83232
-              </a>
-
-              <a
-                href="mailto:rohazbhalla3@gmail.com"
-                className="block border-2 border-black bg-muted px-3 py-1 text-xs shadow-[2px_2px_0_#000]"
-              >
-                ✉️ rohazbhalla3@gmail.com
-              </a>
-
-              <a
-                href="/docs/Rohaz_Bhalla_Software_Engineer.pdf"
-                download
-                className="block border-2 border-black bg-green-700 text-white px-3 py-1 text-xs shadow-[2px_2px_0_#000] hover:bg-green-800"
-              >
-                ⬇ Download Resume
-              </a>
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
-
-        {/* Theme Toggle */}
-        <ModeToggle />
+          {/* Theme Toggle Slot */}
+          <div className="h-9 w-9 flex items-center justify-center border-2 border-black bg-[#c6c6c6] dark:bg-[#3a3a3a] shadow-[2px_2px_0_#000]">
+            <ModeToggle />
+          </div>
+        </div>
       </div>
+
+      {/* Mobile Inventory Menu */}
+      {open && (
+        <div className="md:hidden border-t-4 border-black bg-[#AAAAAA] dark:bg-[#1f1f1f] px-4 py-4">
+          <div className="grid grid-cols-2 gap-3">
+            {links.map(([label, target]) => (
+              <Button
+                key={label}
+                onClick={() => {
+                  setOpen(false);
+                  if (!target.startsWith("/")) smoothScroll(target);
+                }}
+                className={slot}
+              >
+                {label}
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

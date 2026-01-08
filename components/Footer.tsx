@@ -1,7 +1,7 @@
 "use client";
 
 import { smoothScroll } from "@/utils/smoothScroll";
-import { GithubIcon, LinkedinIcon, X } from "lucide-react";
+import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 
 export default function Footer() {
   return (
@@ -63,7 +63,7 @@ export default function Footer() {
               className="border-2 border-black bg-muted p-2 shadow-[2px_2px_0_#000] hover:-translate-y-px"
               aria-label="LinkedIn"
             >
-              <LinkedinIcon className="h-4 w-4" />
+              <SiLinkedin className="h-4 w-4" />
             </a>
 
             {/* X / Twitter */}
@@ -74,7 +74,7 @@ export default function Footer() {
               className="border-2 border-black bg-muted p-2 shadow-[2px_2px_0_#000] hover:-translate-y-px"
               aria-label="X (Twitter)"
             >
-              <X className="h-4 w-4" />
+              <SiX className="h-4 w-4" />
             </a>
 
             <a
@@ -82,9 +82,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="border-2 border-black bg-muted p-2 shadow-[2px_2px_0_#000] hover:-translate-y-px"
-              aria-label="X (Twitter)"
+              aria-label="GitHub"
             >
-              <GithubIcon className="h-4 w-4" />
+              <SiGithub className="h-4 w-4" />
             </a>
           </div>
         </div>

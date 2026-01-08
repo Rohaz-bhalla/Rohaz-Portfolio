@@ -16,7 +16,7 @@ export function SkillTile({ name, level }: Props) {
 
       {/* Hover label */}
       <span
-        className={`absolute -bottom-3 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[10px] border-2 border-black text-white opacity-0 group-hover:opacity-100 transition ${levelColor[level as keyof typeof levelColor]}`}
+        className={`float absolute -bottom-3 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[10px] border-2 border-black text-white opacity-0 group-hover:opacity-100 transition ${levelColor[level as keyof typeof levelColor]}`}
       >
         {level}
       </span>

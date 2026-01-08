@@ -3,8 +3,8 @@ import { TestimonialCard } from "./TestimonialCard"
 
 export default function TestimonialsSection() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-24">
-      <h2 className="mb-12 text-center text-2xl tracking-widest">
+    <section className=" mx-auto max-w-6xl px-6 py-24">
+      <h2 className=" float mb-12 text-center text-2xl tracking-widest">
         📖 What Others Say
       </h2>
 

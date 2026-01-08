@@ -4,7 +4,7 @@ import { SkillTile } from "./SkillTile"
 export default function SkillsSection() {
   return (
     <section id="skills" className="mx-auto max-w-5xl px-6 py-24">
-      <h2 className="mb-10 text-center text-2xl tracking-widest">
+      <h2 className="float mb-10 text-center text-2xl tracking-widest">
         🧰 Skills Inventory
       </h2>
 

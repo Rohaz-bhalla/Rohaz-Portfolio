@@ -17,14 +17,14 @@ export const projects: Project[] = [
   },
   {
     title: "Air Piano",
-    description: "Play music using hand gestures with TensorFlow.",
+    description: "Play dedicated piano chords using gestures of your hands and fingers, listen and compose music live built this using mediapipe, TensorFlow.",
     image: "/projects/air-piano.png",
     tech: ["React", "TensorFlow", "WebAudio"],
     github: "https://github.com/Rohaz-bhalla/Air-Piano",
   },
   {
     title: "Cross-Drop",
-    description: "A File sharing + chat based web application made using Socket.io & Bun.",
+    description: "A peer to peer File sharing as well as chat based web application made using Socket.io & Bun. You can share files to other devices such as ios, MacOS, Windows, Android etc.",
     image: "/projects/cross-drop.png",
     tech: ["React", "Websockets", "Bun"],
     github: "https://github.com/Rohaz-bhalla/Cross-Drop",

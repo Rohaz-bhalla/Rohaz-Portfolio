@@ -4,7 +4,7 @@ import { AchievementCard } from "./AchievementCard"
 export default function AchievementsSection() {
   return (
     <section id="achievements" className="mx-auto max-w-6xl px-6 py-24">
-      <h2 className="mb-12 text-center text-2xl tracking-widest">
+      <h2 className=" float mb-12 text-center text-2xl tracking-widest">
         🏆 Achievements
       </h2>
 
