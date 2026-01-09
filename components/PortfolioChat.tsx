@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 type Message = {
@@ -15,28 +14,37 @@ export default function PortfolioChat() {
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
 
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  /* ---------------- Load session from localStorage ---------------- */
+  /* ================= INIT SESSION ================= */
   useEffect(() => {
     const stored = localStorage.getItem("portfolioChatSession");
     if (stored) setSessionId(stored);
   }, []);
 
-  /* ---------------- Auto scroll ---------------- */
+  /* ================= CLEANUP ON LEAVE ================= */
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading]);
+    function cleanup() {
+      if (!sessionId) return;
 
-  /* ---------------- Send message ---------------- */
+      navigator.sendBeacon(
+        `https://support-core-pearl.vercel.app/api/chat?sessionId=${sessionId}`
+      );
+
+      localStorage.removeItem("portfolioChatSession");
+    }
+
+    window.addEventListener("beforeunload", cleanup);
+    return () => window.removeEventListener("beforeunload", cleanup);
+  }, [sessionId]);
+
+  /* ================= SEND MESSAGE ================= */
   async function sendMessage() {
     if (!input.trim() || loading) return;
 
-    const userMsg = input;
+    const userText = input;
     setInput("");
-
-    setMessages((prev) => [...prev, { role: "user", text: userMsg }]);
     setLoading(true);
+
+    setMessages((prev) => [...prev, { role: "user", text: userText }]);
 
     try {
       const res = await fetch(
@@ -45,7 +53,7 @@ export default function PortfolioChat() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            message: userMsg,
+            message: userText,
             sessionId,
             source: "portfolio",
           }),
@@ -54,17 +62,16 @@ export default function PortfolioChat() {
 
       const data = await res.json();
 
-      // Save session for continuity
       if (data.sessionId && !sessionId) {
-        localStorage.setItem("portfolioChatSession", data.sessionId);
         setSessionId(data.sessionId);
+        localStorage.setItem("portfolioChatSession", data.sessionId);
       }
 
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: data.reply ?? "No response." },
+        { role: "bot", text: data.reply },
       ]);
-    } catch (err) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         {
@@ -77,38 +84,18 @@ export default function PortfolioChat() {
     }
   }
 
-  /* ---------------- Clear chat ---------------- */
-  function clearChat() {
-    setMessages([]);
-    localStorage.removeItem("portfolioChatSession");
-    setSessionId(null);
-  }
-
   return (
-    <div className="flex h-full flex-col border-4 border-black bg-card shadow-[6px_6px_0_#000]">
-      {/* Header */}
-      <div className="flex items-center justify-between border-b-4 border-black bg-muted px-3 py-2">
-        <p className="text-sm font-bold">🤖 Rohaz Bot</p>
-        <Button
-          size="sm"
-          variant="secondary"
-          className="border-2 border-black"
-          onClick={clearChat}
-        >
-          Clear
-        </Button>
-      </div>
-
+    <div className="flex h-full flex-col">
       {/* Messages */}
-      <div className="flex-1 space-y-2 overflow-y-auto p-3 text-sm">
+      <div className="flex-1 space-y-2 overflow-y-auto p-2 text-sm">
         {messages.map((m, i) => (
           <div
             key={i}
             className={`max-w-[80%] border-2 border-black p-2 shadow-[2px_2px_0_#000]
               ${
                 m.role === "user"
-                  ? "ml-auto bg-muted"
-                  : "bg-white/80"
+                  ? "ml-auto bg-muted text-black dark:bg-[#3a3a3a] dark:text-white"
+                  : "bg-card text-black dark:bg-[#1f1f1f] dark:text-white"
               }`}
           >
             {m.text}
@@ -120,20 +107,27 @@ export default function PortfolioChat() {
             Bot is typing…
           </p>
         )}
-
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Input */}
-      <div className="flex gap-2 border-t-4 border-black p-2">
+      <div className="flex gap-2 border-t-4 border-black p-2 bg-background">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          className="
+            flex-1 border-2 border-black px-2 py-1 text-sm
+            bg-background text-black
+            dark:bg-[#1f1f1f] dark:text-white
+          "
           placeholder="Ask about Rohaz..."
-          className="flex-1 border-2 border-black px-2 text-sm outline-none"
         />
-        <Button onClick={sendMessage} disabled={loading}>
+
+        <Button
+          onClick={sendMessage}
+          disabled={loading}
+          className="border-2 border-black"
+        >
           Send
         </Button>
       </div>

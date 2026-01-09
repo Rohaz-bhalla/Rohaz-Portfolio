@@ -32,8 +32,8 @@ export default function ChatWidget() {
         <div
           className="
             fixed bottom-6 right-6 z-50
-            w-[320px] sm:w-[360px]
-            h-[420px]                     /* 👈 HEIGHT HERE */
+            w-[320px] sm:w-90
+            h-105                     /* 👈 HEIGHT HERE */
             border-4 border-black
             bg-card
             shadow-[6px_6px_0_#000]
