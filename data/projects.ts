@@ -41,7 +41,7 @@ export const projects: Project[] = [
    {
     title: "Axiom",
     description: "Developed a CLI based coding agent that can alter and modify your code files with an instance of a given prompt to increase productivity and client deliverability",
-    image: "/projects/axiom.png",
+    image: "/projects/Axiom.png",
     tech: ["Shell", "TypeScript", "Bun", "Groq api"],
     github: "https://github.com/Rohaz-bhalla/Mail-Mind",
   },

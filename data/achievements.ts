@@ -20,7 +20,7 @@ export const achievements: Achievement[] = [
     description:
       "Reached finals in multiple hackathons by building real-world problem solving applications.",
     year: "2024",
-    icon: "/achievements/statusbrew.jpg",
+    icon: "/achievements/Statusbrew.jpg",
   },
 
   {
